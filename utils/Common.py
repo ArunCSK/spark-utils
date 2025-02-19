@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 from delta import DeltaTable
 
-class CommonUtils():
+class Common:
 
     def __init__(self):
         self.spark = self.__create_spark_session__("Spark_Session_Init")
@@ -9,12 +9,6 @@ class CommonUtils():
     def __create_spark_session__(self, session_name):
         return SparkSession.Builder \
                 .getOrCreate(session_name)
-    
-    def get_df(self, path, format, isheader):
-        return self.spark.read \
-                    .format(format) \
-                    .option("header", isheader) \
-                    .load(path)
     
     def delta_exits(self, path=None, table_name=None):
         if path is not None and DeltaTable.isDeltaTable(path):
